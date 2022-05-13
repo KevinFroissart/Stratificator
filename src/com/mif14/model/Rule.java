@@ -28,7 +28,7 @@ public class Rule {
 		Expression head = new Expression(split[0]);
 		String body = split[1].substring(0, split[1].length() - 1);
 		List<Expression> rules = Arrays.stream(body
-				.split("\\),"))
+				.split("\\)\\s*,"))
 				.map(e -> e.endsWith(")") ? new Expression(e) : new Expression(e + ')'))
 				.collect(Collectors.toList());
 		this.head = head;
@@ -41,6 +41,7 @@ public class Rule {
 				head.toString(), body
 				.stream()
 				.map(Expression::toString)
+                .map(String::trim)
 				.collect(Collectors.joining(","))
 		);
 	}
