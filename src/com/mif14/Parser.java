@@ -3,6 +3,7 @@ package com.mif14;
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
+import java.util.Arrays;
 
 import com.mif14.model.Expression;
 import com.mif14.model.Program;
@@ -16,7 +17,8 @@ public class Parser {
 		try (BufferedReader br = new BufferedReader(new FileReader(filename))) {
 			String line;
 			while ((line = br.readLine()) != null) {
-				if (isComment(line)) {
+				line = handleComment(line);
+				if (isEmpty(line)) {
 					continue;
 				}
 				if (isEDB(line)) {
@@ -25,16 +27,27 @@ public class Parser {
 				else if (isIDB(line)) {
 					program.addRule(new Rule(line));
 				}
-				System.out.println(line);
 			}
 		}
 		catch (IOException e) {
 			e.printStackTrace();
 		}
+		System.out.println("EDB:");
+		System.out.println(program.getEdb().toString());
+		System.out.println("IDB");
+//		Arrays.toString(program.getRules());
 	}
 
-	private static boolean isComment(String line) {
-		return line.startsWith("%");
+	private static String handleComment(String line) {
+		line = line.trim();
+		if (line.contains("%") && line.charAt(0) != '%') {
+			return line.substring(0, line.indexOf('%')).trim();
+		}
+		return line.contains("%") ? "" : line;
+	}
+
+	private static boolean isEmpty(String line) {
+		return line.length() == 0;
 	}
 
 	private static boolean isEDB(String line) {
