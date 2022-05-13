@@ -3,7 +3,6 @@ package com.mif14;
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
-import java.util.Arrays;
 
 import com.mif14.model.Expression;
 import com.mif14.model.Program;
@@ -11,9 +10,7 @@ import com.mif14.model.Rule;
 
 public class Parser {
 
-	public static void parse(String filename) {
-		Program program = new Program();
-
+	public static void parse(String filename, Program program) {
 		try (BufferedReader br = new BufferedReader(new FileReader(filename))) {
 			String line;
 			while ((line = br.readLine()) != null) {
@@ -32,11 +29,6 @@ public class Parser {
 		catch (IOException e) {
 			e.printStackTrace();
 		}
-		System.out.println("EDBs:");
-		program.getEdb().stream().forEach(e -> System.out.println(e.toString()));
-		System.out.println();
-		System.out.println("Rules:");
-		program.getRules().stream().forEach(e -> System.out.println(e.toString()));
 	}
 
 	private static String handleComment(String line) {
@@ -52,10 +44,13 @@ public class Parser {
 	}
 
 	private static boolean isEDB(String line) {
-		return line.matches("\\w+\\('?\\w+'?(,\\s*'?\\w+'?)*\\)\\.");
+		return line.matches("\\w+\\(\\s*'?\\w+'?\\s*(,\\s*'?\\w+'?\\s*)*\\)\\.");
 	}
 
 	private static boolean isIDB(String line) {
-		return line.matches("\\w+\\('?\\w+'?(,\\s*'?\\w+'?)*\\)\\s*:-\\s*\\w+\\('?\\w+'?(,'?\\w+'?)*\\)(,\\s*\\w+\\('?\\w+'?(,'?\\w+'?)*\\))*\\.");
+		String not = "\\s*(not)?\\s*";
+		String subgoal = "\\w+\\(\\s*'?\\w+'?\\s*(,\\s*'?\\w+'?\\s*)*\\)";
+		String body = not + subgoal + "\\s*(,\\s*" + not + subgoal + ")*\\.";
+		return line.matches(subgoal + "\\s*:-\\s*" + body);
 	}
 }
