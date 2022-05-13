@@ -22,7 +22,7 @@ public class Expression {
 	}
 
 	public Expression(String expression) {
-		this.isNegative = expression.startsWith("not");
+		this.isNegative = expression.startsWith("not"); // TODO : le remove
 		String[] split = expression.split("\\(");
 		String predicate = split[0];
 		String termsString = split[1].substring(0, split[1].length() - 2);
