@@ -1,23 +1,46 @@
 package com.mif14.model;
 
+import java.util.Arrays;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class Rule {
-    private final Expression head;
-    private final List<Expression> body;
 
-    public Rule(Expression head, List<Expression> body) {
-        this.head = head;
-        this.body = body;
-    }
+	private final Expression head;
+	private final List<Expression> body;
 
-    @Override
-    public String toString() {
-        StringBuilder bodyString = new StringBuilder();
-        for (Expression expression : this.body) {
-            bodyString.append(expression.toString()).append(",");
-        }
-        bodyString.replace(bodyString.length() - 1, bodyString.length(), "");
-        return head.toString() + " :- " + bodyString;
-    }
+	/**
+	 * Constructor with parameters
+	 * @param head the head of the rule
+	 * @param body the body of the rule
+	 */
+	public Rule(Expression head, List<Expression> body) {
+		this.head = head;
+		this.body = body;
+	}
+
+	/**
+	 * Constructor, creates a rule from a line parsed frm {@link com.mif14.Parser}
+	 * @param line
+	 */
+	public Rule(String line) {
+		String[] split = line.split(" :- ");
+		System.out.println(Arrays.toString(split));
+		Expression head = new Expression(split[0]);
+		String body = split[1].substring(0, split[1].length() - 1);
+		System.out.println(body);
+		List<Expression> rules = Arrays.stream(body.split(",")).map(e -> new Expression(e)).collect(Collectors.toList());
+		this.head = head;
+		this.body = rules;
+	}
+
+	@Override
+	public String toString() {
+		return "%s :- %s.".formatted(
+				head.toString(), body
+				.stream()
+				.map(Expression::toString)
+				.collect(Collectors.joining(","))
+		);
+	}
 }
