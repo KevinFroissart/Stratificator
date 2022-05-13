@@ -32,10 +32,11 @@ public class Parser {
 		catch (IOException e) {
 			e.printStackTrace();
 		}
-		System.out.println("EDB:");
-		System.out.println(program.getEdb().toString());
-		System.out.println("IDB");
-//		Arrays.toString(program.getRules());
+		System.out.println("EDBs:");
+		program.getEdb().stream().forEach(e -> System.out.println(e.toString()));
+		System.out.println();
+		System.out.println("Rules:");
+		program.getRules().stream().forEach(e -> System.out.println(e.toString()));
 	}
 
 	private static String handleComment(String line) {
