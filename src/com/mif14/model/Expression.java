@@ -25,7 +25,7 @@ public class Expression {
 		this.isNegative = expression.startsWith("not");
 		String[] split = expression.split("\\(");
 		String predicate = split[0];
-		String termsString = split[1].substring(0, split[1].length() - 2);
+		String termsString = split[1].substring(0, split[1].endsWith(".") ? split[1].length() - 2 : split[1].length() - 1);
 		String[] terms = termsString.split(",");
 		this.predicate = predicate;
 		this.terms = Arrays.asList(terms);
