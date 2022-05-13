@@ -1,6 +1,9 @@
 
-Person(pID,name,sex,married). % COMM
-
+Test(pID,name,sex,married). % COMM
+n'importe quoi, pouquoi c'est là ?
+autre test % test
+%% %%test %
+%
 % EDB
 Person(pID,name,sex,married).
 
