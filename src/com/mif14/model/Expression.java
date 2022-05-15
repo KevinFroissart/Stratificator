@@ -2,7 +2,7 @@ package com.mif14.model;
 
 import java.util.Arrays;
 import java.util.List;
-import java.util.stream.Collectors;
+import java.util.Objects;
 
 public class Expression {
 
@@ -64,5 +64,18 @@ public class Expression {
 
     public boolean hasSamePredicate(Expression expression) {
         return this.predicate.equals(expression.predicate);
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Expression that = (Expression) o;
+        return Objects.equals(predicate, that.predicate);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(predicate);
     }
 }
