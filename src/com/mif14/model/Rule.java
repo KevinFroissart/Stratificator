@@ -26,12 +26,20 @@ public class Rule {
      * @param line the line to read
      */
     public Rule(String line) {
-        String[] split = line.split(" :- ");
+        line = line.trim();
+        line = removeDot(line);
+        String IMPLICATION_PATTERN = "\\s*:-\\s*";
+        String[] split = line.split(IMPLICATION_PATTERN);
         Expression head = new Expression(split[0]);
         String body = split[1].substring(0, split[1].length() - 1);
         List<Expression> rules = Arrays.stream(body.split("\\)\\s*,")).map(e -> e.endsWith(")") ? new Expression(e) : new Expression(e + ')')).collect(Collectors.toList());
         this.head = head;
         this.body = rules;
+    }
+
+    private String removeDot(String line) {
+        if (line.endsWith(".")) return line.substring(0, line.length() - 1);
+        return line;
     }
 
     @Override
