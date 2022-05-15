@@ -1,0 +1,12 @@
+% EDB
+F(x,y).
+C(x,y).
+
+
+% IDB
+S(x) :- P(x,x), not R(x,x).
+R(x,y) :- P(x,y), C(x,’R’).
+R(x,y) :- P(x,y), C(y,’R’).
+P(x,y) :- F(x,y).
+P(x,z) :- P(x,y), F(y,z).
+A(X) :- P(x,x), not S(x).

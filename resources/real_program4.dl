@@ -1,0 +1,11 @@
+% EDB
+E(x).
+T(x).
+F(x).
+
+% IDB
+R(x) :- P(x), not Q(x).
+Q(x) :- not V(x), E(x).
+P(x) :- not S(x), E(x).
+V(x) :- T(x).
+S(x) :- F(x).

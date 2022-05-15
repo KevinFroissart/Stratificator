@@ -1,0 +1,12 @@
+% EDB
+Feather(x).
+Hair(x).
+Fur(x).
+
+% IDB
+Dog(x) :- Hair(x), Fur(x), not Feather(x).
+Bird(x) :- Feather(x), not Hair(x).
+Cat(x) :- Fur(x), not Hair(x), not Feather(x).
+Human(x) :- Hair(x), not Feather(x).
+Growl(x) :- Dog(x).
+Speak(x) :- Human(x).
