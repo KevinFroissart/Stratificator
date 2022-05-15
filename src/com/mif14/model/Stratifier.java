@@ -6,6 +6,12 @@ import java.util.Map;
 
 public class Stratifier {
 
+    /**
+     * Computes a stratified version of a given {@link Program}.
+     *
+     * @param program The {@link Program} to startify.
+     * @return a computed {@link Stratification}.
+     */
     public static Stratification stratificate(Program program) {
         Map<String, Integer> stratum = new HashMap<>();
         for (Expression predicate : program.getRules().stream().map(Rule::getHead).toList()) {

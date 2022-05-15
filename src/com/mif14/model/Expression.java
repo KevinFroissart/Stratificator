@@ -6,52 +6,68 @@ import java.util.Objects;
 
 public class Expression {
 
-    String predicate;
-    List<String> terms;
-    boolean isNegative;
+    private String predicate;
+    private List<String> terms;
+    private boolean isNegative;
 
     /**
-     * Constructor with parameters
+     * Constructor.
+     * Parses a string into a predicate followed by its parameters.
+     * Also flags the expression as negative if it starts with "not".
      *
-     * @param isNegative true if the expression is negative else false.
-     * @param predicate The predicate's name.
-     * @param terms     The terms of the expression.
+     * @param expression The expression to parse.
      */
-    public Expression(boolean isNegative, String predicate, List<String> terms) {
-        this.isNegative = isNegative;
-        this.predicate = predicate;
-        this.terms = terms;
-    }
-
     public Expression(String expression) {
-        expression = expression.trim();
-        expression = removeDot(expression);
-        this.isNegative = expression.startsWith("not");
-        if (isNegative) expression = removeNot(expression);
+        expression = removeDot(expression.trim());
+        if (this.isNegative = expression.startsWith("not")) expression = removeNot(expression);
         String[] split = expression.split("\\s*\\(");
-        this.predicate = split[0];
         String termsString = split[1].substring(0, split[1].length() - 1);
         String[] terms = termsString.replace(" ", "").split(",");
+
+        this.predicate = split[0];
         this.terms = Arrays.asList(terms);
     }
 
-    private String removeDot(String line) {
-        if (line.endsWith(".")) return line.substring(0, line.length() - 1);
-        return line;
+    /**
+     * Removes the dot at the end of the expression if present.
+     *
+     * @param expression The expression.
+     * @return The expression without its dot.
+     */
+    private String removeDot(String expression) {
+        if (expression.endsWith(".")) return expression.substring(0, expression.length() - 1);
+        return expression;
     }
 
+    /**
+     * Removes the "not" from the expression if present.
+     *
+     * @param expression The expression.
+     * @return The expression without the "not".
+     */
     private String removeNot(String expression) {
         return expression.substring(3).trim();
     }
 
+    /**
+     * Get the expression's predicate.
+     * @return The predicate.
+     */
     public String getPredicate() {
         return predicate;
     }
 
+    /**
+     * Get the terms of the expression.
+     * @return A list of terms.
+     */
     public List<String> getTerms() {
         return terms;
     }
 
+    /**
+     * @return True if negative, false otherwise.
+     */
     public boolean isNegative() {
         return this.isNegative;
     }
@@ -60,10 +76,6 @@ public class Expression {
     public String toString() {
         return (isNegative ? "not " : "") +
                 predicate + "(" + String.join(", ", terms) + ")";
-    }
-
-    public boolean hasSamePredicate(Expression expression) {
-        return this.predicate.equals(expression.predicate);
     }
 
     @Override
