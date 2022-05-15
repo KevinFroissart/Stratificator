@@ -1,12 +1,12 @@
 package com.mif14;
 
-import java.io.BufferedReader;
-import java.io.FileReader;
-import java.io.IOException;
-
 import com.mif14.model.Expression;
 import com.mif14.model.Program;
 import com.mif14.model.Rule;
+
+import java.io.BufferedReader;
+import java.io.FileReader;
+import java.io.IOException;
 
 public class Parser {
 
@@ -35,7 +35,8 @@ public class Parser {
                 printErrorMessage(lineNumber);
             }
         } catch (IOException e) {
-            e.printStackTrace();
+            System.err.println("File " + filename + " not found");
+            System.exit(1);
         }
         return program;
     }
