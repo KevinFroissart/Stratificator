@@ -71,8 +71,8 @@ public class Main {
         String stringBuilder = """
                 Usage : stratificator [OPTION] SOURCE
                 -o [DEST]\tspecify the output file
-                -v\t\t\tadd verbosity and print pased program
-                -h\t\t\tshow this help
+                -v\t\t\tadd verbosity and print parsed program
+                -h\t\t\tdisplay this help and exit
                 """;
         System.out.println(stringBuilder);
         System.exit(0);
