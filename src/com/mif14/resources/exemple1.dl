@@ -15,6 +15,6 @@ Woman(a,bb).
 Singleman(x) :- Man(x,v), not Husband(x).
 
 Married(x) :-   not    Person(id, x  ,s,1 ).
-Husband(x) :- Man(x ) ,  Married( x  ). % Un commentaire
+Husband(x, y) :- Man(x ) ,  Married( x ,y ). % Un commentaire
 
 
