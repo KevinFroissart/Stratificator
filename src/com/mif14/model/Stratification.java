@@ -1,7 +1,5 @@
 package com.mif14.model;
 
-import java.io.FileWriter;
-import java.io.IOException;
 import java.io.PrintStream;
 import java.util.ArrayList;
 import java.util.List;
@@ -10,7 +8,12 @@ public class Stratification {
 
     List<List<Rule>> strata;
 
-    //TODO: ajouter doc
+    /**
+     * Constructor.
+     * Initialises an empty Stratification.
+     *
+     * @param stratumNumber the number of strata
+     */
     public Stratification(int stratumNumber) {
         this.strata = new ArrayList<>(stratumNumber);
         for (int i = 0; i < stratumNumber; i++) {
@@ -22,23 +25,17 @@ public class Stratification {
      * Adds a {@link Rule} to the specified stratum.
      *
      * @param stratum The stratum number.
-     * @param rule The rule to add.
+     * @param rule    The rule to add.
      */
     public void addRule(int stratum, List<Rule> rule) {
         strata.get(stratum - 1).addAll(rule);
     }
 
-
-    //TODO: ajouter doc (ou virer si pas nécessaire)
-    public void writeInFile(String filename) {
-        try (FileWriter fileWriter = new FileWriter(filename)) {
-            fileWriter.write(this.toString());
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
-    }
-
-    //TODO: ajouter doc
+    /**
+     * Writes the stratification in the printstream provided.
+     *
+     * @param printStream the {@link PrintStream} where to write the stratification.
+     */
     public void writeInFile(PrintStream printStream) {
         printStream.println(this);
     }

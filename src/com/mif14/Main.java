@@ -14,16 +14,15 @@ public class Main {
         String inputFilename = args[args.length - 1];
         PrintStream output = parseArgs(args);
         Program program = Parser.parse(inputFilename);
+        System.out.println("Stratified program:");
         program.printOutput();
         Stratification stratification = Stratifier.stratificate(program);
         stratification.writeInFile(output);
-        System.out.println("Stratified program:");
-        //TODO: print les stratums si possible
         output.close();
     }
 
     /**
-     * Parses the given arguments.
+     * Parses the given arguments and return the output PrintStream.
      *
      * @param args The arguments.
      * @return A {@link PrintStream}.
