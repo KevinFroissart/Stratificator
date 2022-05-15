@@ -8,7 +8,6 @@ public class Program {
 	private List<Expression> edb;
 	private List<Rule> rules;
 
-
 	public Program() {
 		this.edb = new ArrayList<>();
 		this.rules = new ArrayList<>();
@@ -33,5 +32,13 @@ public class Program {
 
 	public void addRule(Rule rule) {
 		this.rules.add(rule);
+	}
+
+	public void printOutput() {
+		String output = "EDB:\n";
+		output += this.edb.stream().map(edb -> edb.toString() + ".\n").reduce("", String::concat);
+		output += "\n\nRules:\n";
+		output += this.rules.stream().map(rule-> rule.toString() + "\n").reduce("", String::concat);
+		System.out.println(output);
 	}
 }

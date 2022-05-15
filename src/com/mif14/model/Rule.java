@@ -20,16 +20,17 @@ public class Rule {
 	}
 
 	/**
-	 * Constructor, creates a rule from a line parsed frm {@link com.mif14.Parser}
+	 * Constructor, creates a rule from a line parsed from {@link com.mif14.Parser}
 	 * @param line
 	 */
 	public Rule(String line) {
 		String[] split = line.split(" :- ");
-		System.out.println(Arrays.toString(split));
 		Expression head = new Expression(split[0]);
 		String body = split[1].substring(0, split[1].length() - 1);
-		System.out.println(body);
-		List<Expression> rules = Arrays.stream(body.split(",")).map(e -> new Expression(e)).collect(Collectors.toList());
+		List<Expression> rules = Arrays.stream(body
+				.split("\\)\\s*,"))
+				.map(e -> e.endsWith(")") ? new Expression(e) : new Expression(e + ')'))
+				.collect(Collectors.toList());
 		this.head = head;
 		this.body = rules;
 	}
@@ -40,6 +41,7 @@ public class Rule {
 				head.toString(), body
 				.stream()
 				.map(Expression::toString)
+                .map(String::trim)
 				.collect(Collectors.joining(","))
 		);
 	}

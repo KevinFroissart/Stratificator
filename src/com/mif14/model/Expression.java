@@ -22,11 +22,11 @@ public class Expression {
 	}
 
 	public Expression(String expression) {
-		this.isNegative = expression.startsWith("not"); // TODO : le remove
+		this.isNegative = expression.trim().startsWith("not");
 		String[] split = expression.split("\\(");
 		String predicate = split[0];
-		String termsString = split[1].substring(0, split[1].length() - 2);
-		String[] terms = termsString.split(",");
+		String termsString = split[1].substring(0, split[1].endsWith(".") ? split[1].length() - 2 : split[1].length() - 1);
+		String[] terms = termsString.replace(" ","").split(",");
 		this.predicate = predicate;
 		this.terms = Arrays.asList(terms);
 	}
