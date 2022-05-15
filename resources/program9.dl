@@ -1,0 +1,15 @@
+% EDB
+Food(fID, color, fruit, vegetable, junk).
+
+% IDB
+Fruit(x) :- Food(x, color, 'Y', vegetable, junk).
+Vegetable(x) :- Food(x, color, fruit, 'Y', junk).
+Junk(x) :- Food(x, color, fruit, vegetable, 'Y').
+Yellow(x) :- Food(x, 'yellow', fruit, vegetable, junk).
+Red(x) :- Food(x, 'red', fruit, vegetable, junk).
+Banana(x) :- Fruit(x), Yellow(x).
+Corn(x) :- Vegetable(x), Yellow(x).
+Strawberry(x) :- Fruit(x), not Vegetable(x), Red(x).
+Beet(x) :- Vegetable(x), not Fruit(x), Red(x).
+Tomato(x) :- Vegetable(x), Fruit(x), Red(x).
+FruitSalad(x,y) :- Fruit(x), Red(x), not Tomato(x), Banana(y).

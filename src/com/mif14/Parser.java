@@ -26,6 +26,7 @@ public class Parser {
             int lineNumber = 0;
             while ((line = br.readLine()) != null) {
                 lineNumber++;
+                line = line.replace("’","'");
                 line = handleComment(line);
                 if (line.isEmpty()) {
                     continue;

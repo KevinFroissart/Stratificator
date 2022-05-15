@@ -1,0 +1,15 @@
+% EDB
+Sport(sID, run, jump, swim, throw, sync).
+
+% IDB
+Jump(x) :- Sport(x, run, 'Y', swim, throw, sync).
+Run(x) :- Sport(x, 'Y', jump, swim, throw, sync).
+Swim(x) :- Sport(x, run, jump, 'Y', throw, sync).
+Throw(x) :- Sport(x, run, jump, swim, 'Y', sync).
+Sync(x) :- Sport(x, run, jump, swim, throw, 'Y').
+Handball(x) :- Run(x), Throw(x).
+500M(x) :- Run(x), not Jump(x).
+500MHurdle(x) :- Run(x), Jump(x).
+SynchronizedSwimming(x) :- Swim(x), Jump(x), Sync(x).
+Duathlon(x,y) :- Run(x), not Handball(x), Swim(y), not SynchronizedSwimming(y).
+MultiSport(x,y) :- Run(x), not Duathlon(x,y), Jump(y).
