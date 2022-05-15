@@ -9,16 +9,21 @@ import java.io.PrintStream;
 
 public class Main {
 
+    private static boolean verbosity = false;
+
     public static void main(String[] args) {
-        if (args.length % 2 == 0) showHelp();
-        String inputFilename = args[args.length - 1];
         PrintStream output = parseArgs(args);
+        String inputFilename = args[args.length - 1];
         Program program = Parser.parse(inputFilename);
-        System.out.println("Stratified program:");
-        program.printOutput();
+        if (verbosity) printProgram(program);
         Stratification stratification = Stratifier.stratificate(program);
         stratification.writeInFile(output);
         output.close();
+    }
+
+    private static void printProgram(Program program) {
+        System.out.println("Stratified program:");
+        program.printOutput();
     }
 
     /**
@@ -28,31 +33,45 @@ public class Main {
      * @return A {@link PrintStream}.
      */
     private static PrintStream parseArgs(String[] args) {
+        PrintStream outputStream = System.out;
         for (int i = 0; i < args.length; i++) {
             String arg = args[i];
             switch (arg) {
                 case "-o" -> {
                     i++;
-                    if ((i >= args.length)) showHelp();
+                    if (i >= args.length || args[i].startsWith("-")) showHelp("You must specify a filename");
                     try {
-                        return new PrintStream(args[i]);
+                        outputStream = new PrintStream(args[i]);
                     } catch (FileNotFoundException e) {
-                        showHelp();
+                        showHelp("File could not be created");
                     }
+                }
+                case "-v" -> {
+                    verbosity = true;
+                    if ((args.length - i) % 2 == 1) showHelp("You must specify a input file");
                 }
                 case "-h" -> showHelp();
             }
         }
-        return System.out;
+        return outputStream;
     }
 
     /**
-     * Prints the help.
+     * Prints the help and an error message before if provided
+     */
+    private static void showHelp(String message) {
+        System.err.println(message);
+        showHelp();
+    }
+
+    /**
+     * Prints the help
      */
     private static void showHelp() {
         String stringBuilder = """
                 Usage : stratificator [OPTION] SOURCE
                 -o [DEST]\tspecify the output file
+                -v\t\t\tadd verbosity and print pased program
                 -h\t\t\tshow this help
                 """;
         System.out.println(stringBuilder);
