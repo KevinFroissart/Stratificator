@@ -1,3 +1,9 @@
+
+Test( pID , name,  sex, married  ). % COMM
+n'importe quoi, pouquoi c'est là ?
+autre test % test
+%% %%test %
+%
 % EDB
 Person(pID,name,sex,married).
 
@@ -6,11 +12,9 @@ Person(pID,name,sex,married).
 Man(x) :- Person(id,x,'M',m).
 Woman(a,bb).
 
+Singleman(x) :- Man(x,v), not Husband(x).
 
-Singleman(x) :- Man(x), not Husband(x).
-
-
-Married(x) :- Person(id,x,s,1).
-Husband(x) :- Man(x),Married(x).
+Married(x) :-   not    Person(id, x  ,s,1 ).
+Husband(x) :- Man(x ) ,  Married( x  ). % Un putain de commentaire
 
 
