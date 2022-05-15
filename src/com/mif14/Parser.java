@@ -10,10 +10,16 @@ import com.mif14.model.Rule;
 
 public class Parser {
 
-    public static void parse(String filename, Program program) {
+    public static String NOT_PATTERN = "\\s*(not)?\\s*";
+    public static String EXPRESSION_PATTERN = "\\s*\\w+\\s*\\(\\s*'?\\w+'?\\s*(,\\s*'?\\w+'?\\s*)*\\)\\s*";
+
+    public static Program parse(String filename) {
+        Program program = new Program();
         try (BufferedReader br = new BufferedReader(new FileReader(filename))) {
             String line;
+            int lineNumber = 0;
             while ((line = br.readLine()) != null) {
+                lineNumber++;
                 line = handleComment(line);
                 if (line.isEmpty()) {
                     continue;
@@ -24,11 +30,18 @@ public class Parser {
                 }
                 if (isIDB(line)) {
                     program.addRule(new Rule(line));
+                    continue;
                 }
+                printErrorMessage(lineNumber);
             }
         } catch (IOException e) {
             e.printStackTrace();
         }
+        return program;
+    }
+
+    private static void printErrorMessage(int lineNumber) {
+        System.err.println("Error Line " + lineNumber);
     }
 
     private static String handleComment(String line) {
@@ -40,13 +53,11 @@ public class Parser {
     }
 
     private static boolean isEDB(String line) {
-        return line.matches("\\w+\\(\\s*'?\\w+'?\\s*(,\\s*'?\\w+'?\\s*)*\\)\\.");
+        return line.matches(EXPRESSION_PATTERN + "\\.");
     }
 
     private static boolean isIDB(String line) {
-        String not = "\\s*(not)?\\s*";
-        String subgoal = "\\w+\\(\\s*'?\\w+'?\\s*(,\\s*'?\\w+'?\\s*)*\\)";
-        String body = not + subgoal + "\\s*(,\\s*" + not + subgoal + ")*\\.";
-        return line.matches(subgoal + "\\s*:-\\s*" + body);
+        String body = NOT_PATTERN + EXPRESSION_PATTERN + "(," + NOT_PATTERN + EXPRESSION_PATTERN + ")*\\s*\\.";
+        return line.matches(EXPRESSION_PATTERN + "\\s*:-\\s*" + body);
     }
 }

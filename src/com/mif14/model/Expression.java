@@ -13,24 +13,31 @@ public class Expression {
     /**
      * Constructor with parameters
      *
+     * @param isNegative true if the expression is negative else false.
      * @param predicate The predicate's name.
      * @param terms     The terms of the expression.
      */
-    public Expression(String predicate, List<String> terms) {
-        this.isNegative = false;
+    public Expression(boolean isNegative, String predicate, List<String> terms) {
+        this.isNegative = isNegative;
         this.predicate = predicate;
         this.terms = terms;
     }
 
     public Expression(String expression) {
         expression = expression.trim();
+        expression = removeDot(expression);
         this.isNegative = expression.startsWith("not");
         if (isNegative) expression = removeNot(expression);
-        String[] split = expression.split("\\(");
+        String[] split = expression.split("\\s*\\(");
         this.predicate = split[0];
-        String termsString = split[1].substring(0, split[1].endsWith(".") ? split[1].length() - 2 : split[1].length() - 1);
+        String termsString = split[1].substring(0, split[1].length() - 1);
         String[] terms = termsString.replace(" ", "").split(",");
         this.terms = Arrays.asList(terms);
+    }
+
+    private String removeDot(String line) {
+        if (line.endsWith(".")) return line.substring(0, line.length() - 1);
+        return line;
     }
 
     private String removeNot(String expression) {

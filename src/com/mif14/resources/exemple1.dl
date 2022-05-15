@@ -1,5 +1,5 @@
 
-Test( pID , name,  sex, married  ). % COMM
+Test ( pID , name,  sex, married  ) . % COMM
 n'importe quoi, pouquoi c'est là ?
 autre test % test
 %% %%test %
@@ -9,12 +9,13 @@ Person(pID,name,sex,married).
 
 
 % IDB
-Man(x) :- Person(id,x,'M',m).
+Man(x) :- Person(id,x,'M',m) .
+Man(x) : - Person(id,x,'M',m) .
 Woman(a,bb).
 
-Singleman(x) :- Man(x,v), not Husband(x).
+Singleman(x) :-Man(x,v), not Husband(x).
 
-Married(x) :-   not    Person(id, x  ,s,1 ).
+Married(x):-   not    Person(id, x  ,s,1 ).
 Husband(x, y) :- Man(x ) ,  Married( x ,y ). % Un commentaire
 
 
