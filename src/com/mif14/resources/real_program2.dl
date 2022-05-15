@@ -1,0 +1,14 @@
+% EDB
+Person(pID, name, sex, married).
+
+
+% IDB
+Man(x) :- Person(id, x, 'M', m).
+Woman(x) :- Person(id, x, 'W', m).
+Single(x) :- Man(x, v), not Husband(x).
+Single(x) :- Woman(x, v), not Husband(x).
+Married(x) :- Person(id, x, s, 1).
+Husband(x) :- Man(x), Married(x).
+Test(x) :- Single(x).
+
+

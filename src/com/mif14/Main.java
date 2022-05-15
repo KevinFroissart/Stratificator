@@ -7,7 +7,7 @@ import com.mif14.model.Stratifier;
 public class Main {
 
     public static void main(String[] args) {
-        String file = "src/com/mif14/resources/real_program.dl";
+        String file = "src/com/mif14/resources/real_program2.dl";
         Program program = Parser.parse(file);
         program.printOutput();
         Stratification stratification = Stratifier.stratificate(program);
