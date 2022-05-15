@@ -37,6 +37,14 @@ public class Rule {
         this.body = rules;
     }
 
+    public Expression getHead() {
+        return head;
+    }
+
+    public List<Expression> getBody() {
+        return body;
+    }
+
     private String removeDot(String line) {
         if (line.endsWith(".")) return line.substring(0, line.length() - 1);
         return line;
