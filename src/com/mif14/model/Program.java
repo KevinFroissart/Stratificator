@@ -59,8 +59,8 @@ public class Program {
 	public void printOutput() {
 		String output = "% EDB:\n";
 		output += this.edb.stream().map(edb -> edb.toString() + ".\n").reduce("", String::concat);
-		output += "\n\n% Rules:\n";
-		output += this.rules.stream().map(rule-> rule.toString() + "\n").reduce("", String::concat);
+		output += "\n% Rules:\n";
+		output += this.rules.stream().map(rule -> rule.toString() + "\n").reduce("", String::concat);
 		System.out.println(output);
 	}
 }
