@@ -1,0 +1,11 @@
+% EDB
+Person(pID, name, sex, married, parent).
+
+% IDB
+Man(x) :- Person(id, x, 'M', m, p).
+Woman(x) :- Person(id, x, 'W', m, p).
+Parent(x) :- Person(id, x, s, m, 'Y').
+Single(x) :- Person(id, x, s, 'Y', p).
+Father(x) :- Man(x), Parent(x), not Single(x).
+Mother(x) :- Woman(x), Parent(x), not Single(x).
+Parents(x,y) :- Father(x), Mother(y).

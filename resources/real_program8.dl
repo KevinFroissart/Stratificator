@@ -1,0 +1,13 @@
+% EDB
+Substence(sID, allowed, dangerous, liquid).
+
+% IDB
+Allowed(x) :- Substence(x, 'Y', dangerous, liquid).
+Dangerous(x) :- Substence(x, allowed, 'Y', liquid).
+Liquid(x) :- Substence(x, allowed, dangerous, 'Y').
+Tobacco(x) :- Allowed(x), Dangerous(x), not Liquid(x).
+Cannabis(x) :- Dangerous(x), not Allowed(x), not Liquid(x).
+Alcohol(x) :- Allowed(x), Dangerous(x), Liquid(x).
+SeflmadeAlcohol(x) :- Dangerous(x), not Allowed(x), Liquid(x).
+CanSmoke(x) :- Tobacco(x), not Cannabis(x).
+CanDrink(x) :- Alcohol(x), not SeflmadeAlcohol(x).

@@ -1,0 +1,21 @@
+% EDB
+Vehicle(vID, tires, wings, propellers).
+
+% IDB
+RoadCompatible(x) :- Vehicle(x, 4, 0, 0).
+RoadCompatible(x) :- Vehicle(x, 2, 0, 0).
+AirCompatible(x) :- Vehicle(x, 0, 2, 0).
+AirCompatible(x) :- Vehicle(x, 0, 0, 8).
+WaterCompatible(x) :- Vehicle(x, 0, 0, 3).
+Car(x) :- RoadCompatible(x).
+MotorCycle(x) :- RoadCompatible(x).
+Bicycle(x) :- RoadCompatible(x).
+Plane(x) :- AirCompatible(x).
+Boat(x) :- WaterCompatible(x).
+Helicopter(x) :- AirCompatible(x), not WaterCompatible(x).
+SlowAirTravel(x) :- AirCompatible(x), not Plane(x).
+FastRoadTravel(x) :- RoadCompatible(x), not Bicycle(x).
+Travel(x) :- SlowAirTravel(x).
+Travel(x) :- FastRoadTravel(x).
+FastTravel(x) :- Travel(x), not SlowAirTravel(x).
+SlowTravel(x) :- Travel(x), not FastRoadTravel(x).
