@@ -1,5 +1,7 @@
 package com.mif14.model;
 
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -27,5 +29,13 @@ public class Stratification {
             stringBuilder.append("\n}\n");
         }
         return stringBuilder.toString();
+    }
+
+    public void writeInFile(String filename) {
+        try (FileWriter fileWriter = new FileWriter("output.txt")) {
+            fileWriter.write(this.toString());
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
     }
 }

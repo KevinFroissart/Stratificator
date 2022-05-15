@@ -12,5 +12,6 @@ public class Main {
         program.printOutput();
         Stratification stratification = Stratifier.stratificate(program);
         System.out.println(stratification);
+        stratification.writeInFile("result.txt");
     }
 }
