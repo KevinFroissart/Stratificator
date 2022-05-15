@@ -2,6 +2,7 @@ package com.mif14.model;
 
 import java.io.FileWriter;
 import java.io.IOException;
+import java.io.PrintStream;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -32,10 +33,14 @@ public class Stratification {
     }
 
     public void writeInFile(String filename) {
-        try (FileWriter fileWriter = new FileWriter("output.txt")) {
+        try (FileWriter fileWriter = new FileWriter(filename)) {
             fileWriter.write(this.toString());
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
+    }
+
+    public void writeInFile(PrintStream printStream) {
+        printStream.println(this);
     }
 }

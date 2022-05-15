@@ -4,14 +4,48 @@ import com.mif14.model.Program;
 import com.mif14.model.Stratification;
 import com.mif14.model.Stratifier;
 
+import java.io.FileNotFoundException;
+import java.io.PrintStream;
+
 public class Main {
 
     public static void main(String[] args) {
-        String file = "src/com/mif14/resources/real_program2.dl";
-        Program program = Parser.parse(file);
+        if (args.length % 2 == 0) showHelp();
+        String inputFilename = args[args.length - 1];
+        PrintStream output = parseArgs(args);
+        Program program = Parser.parse(inputFilename);
         program.printOutput();
         Stratification stratification = Stratifier.stratificate(program);
-        System.out.println(stratification);
-        stratification.writeInFile("result.txt");
+        stratification.writeInFile(output);
+        output.close();
+    }
+
+    private static PrintStream parseArgs(String[] args) {
+        for (int i = 0; i < args.length; i++) {
+            String arg = args[i];
+            switch (arg) {
+                case "-o" -> {
+                    i++;
+                    if ((i >= args.length)) showHelp();
+                    try {
+                        return new PrintStream(args[i]);
+                    } catch (FileNotFoundException e) {
+                        showHelp();
+                    }
+                }
+                case "-h" -> showHelp();
+            }
+        }
+        return System.out;
+    }
+
+    private static void showHelp() {
+        String stringBuilder = """
+                Usage : stratificator [OPTION] SOURCE
+                -o [DEST]\tspecify the output file
+                -h\t\t\tshow this help
+                """;
+        System.out.println(stringBuilder);
+        System.exit(0);
     }
 }
