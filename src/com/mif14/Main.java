@@ -17,9 +17,17 @@ public class Main {
         program.printOutput();
         Stratification stratification = Stratifier.stratificate(program);
         stratification.writeInFile(output);
+        System.out.println("Stratified program:");
+        //TODO: print les stratums si possible
         output.close();
     }
 
+    /**
+     * Parses the given arguments.
+     *
+     * @param args The arguments.
+     * @return A {@link PrintStream}.
+     */
     private static PrintStream parseArgs(String[] args) {
         for (int i = 0; i < args.length; i++) {
             String arg = args[i];
@@ -39,6 +47,9 @@ public class Main {
         return System.out;
     }
 
+    /**
+     * Prints the help.
+     */
     private static void showHelp() {
         String stringBuilder = """
                 Usage : stratificator [OPTION] SOURCE

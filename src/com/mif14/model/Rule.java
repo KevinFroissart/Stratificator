@@ -8,39 +8,36 @@ public class Rule {
 
     private final Expression head;
     private final List<Expression> body;
+    private final String IMPLICATION_PATTERN = "\\s*:-\\s*";
 
     /**
-     * Constructor with parameters
+     * Constructor, creates a rule from a line parsed from {@link com.mif14.Parser}.
      *
-     * @param head the head of the rule
-     * @param body the body of the rule
-     */
-    public Rule(Expression head, List<Expression> body) {
-        this.head = head;
-        this.body = body;
-    }
-
-    /**
-     * Constructor, creates a rule from a line parsed from {@link com.mif14.Parser}
-     *
-     * @param line the line to read
+     * @param line The line to read.
      */
     public Rule(String line) {
-        line = line.trim();
-        line = removeDot(line);
-        String IMPLICATION_PATTERN = "\\s*:-\\s*";
+        line = removeDot(line.trim());
         String[] split = line.split(IMPLICATION_PATTERN);
-        Expression head = new Expression(split[0]);
         String body = split[1].substring(0, split[1].length() - 1);
-        List<Expression> rules = Arrays.stream(body.split("\\)\\s*,")).map(e -> e.endsWith(")") ? new Expression(e) : new Expression(e + ')')).collect(Collectors.toList());
-        this.head = head;
-        this.body = rules;
+
+        this.head = new Expression(split[0]);
+        this.body = Arrays.stream(body.split("\\)\\s*,")).map(e -> e.endsWith(")") ? new Expression(e) : new Expression(e + ')')).collect(Collectors.toList());
     }
 
+    /**
+     * Get the head of the rule.
+     *
+     * @return An {@link Expression}.
+     */
     public Expression getHead() {
         return head;
     }
 
+    /**
+     * Get the body of the rule.
+     *
+     * @return A list of {@link Expression}.
+     */
     public List<Expression> getBody() {
         return body;
     }

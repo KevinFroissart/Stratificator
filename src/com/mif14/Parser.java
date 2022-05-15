@@ -13,6 +13,12 @@ public class Parser {
     public static String NOT_PATTERN = "\\s*(not)?\\s*";
     public static String EXPRESSION_PATTERN = "\\s*\\w+\\s*\\(\\s*'?\\w+'?\\s*(,\\s*'?\\w+'?\\s*)*\\)\\s*";
 
+    /**
+     * Reads and parses a given file into a list of EDBs and rules.
+     *
+     * @param filename The file to parse.
+     * @return A {@link Program}.
+     */
     public static Program parse(String filename) {
         Program program = new Program();
         try (BufferedReader br = new BufferedReader(new FileReader(filename))) {
@@ -41,10 +47,21 @@ public class Parser {
         return program;
     }
 
+    /**
+     * Prints an error message.
+     *
+     * @param lineNumber The line where the error occurred.
+     */
     private static void printErrorMessage(int lineNumber) {
         System.err.println("Error Line " + lineNumber);
     }
 
+    /**
+     * Removes comments from a given line.
+     *
+     * @param line The line to handle.
+     * @return The line without comments.
+     */
     private static String handleComment(String line) {
         line = line.trim();
         if (line.contains("%") && line.charAt(0) != '%') {
@@ -53,10 +70,22 @@ public class Parser {
         return line.contains("%") ? "" : line;
     }
 
+    /**
+     * Checks id a given line matches the EDB regex.
+     *
+     * @param line The line to check.
+     * @return True if is an EDB, false otherwise.
+     */
     private static boolean isEDB(String line) {
         return line.matches(EXPRESSION_PATTERN + "\\.");
     }
 
+    /**
+     * Checks id a given line matches the IDB regex.
+     *
+     * @param line The line to check.
+     * @return True if is an IDB, false otherwise.
+     */
     private static boolean isIDB(String line) {
         String body = NOT_PATTERN + EXPRESSION_PATTERN + "(," + NOT_PATTERN + EXPRESSION_PATTERN + ")*\\s*\\.";
         return line.matches(EXPRESSION_PATTERN + "\\s*:-\\s*" + body);
