@@ -7,11 +7,15 @@ import com.mif14.model.Stratifier;
 import java.io.FileNotFoundException;
 import java.io.PrintStream;
 
+
 public class Main {
 
     private static boolean verbosity = false;
 
     public static void main(String[] args) {
+        if (args.length < 1) {
+            showHelp();
+        }
         PrintStream output = parseArgs(args);
         String inputFilename = args[args.length - 1];
         Program program = Parser.parse(inputFilename);
@@ -24,7 +28,7 @@ public class Main {
     /**
      * Prints the stratified {@link Program}.
      *
-     * @param program The {@@link Program} to print.
+     * @param program The {@link Program} to print.
      */
     private static void printProgram(Program program) {
         System.out.println("Stratified program:");
