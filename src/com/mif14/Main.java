@@ -78,10 +78,10 @@ public class Main {
      */
     private static void showHelp() {
         String stringBuilder = """
-                Usage : stratificator [OPTION] SOURCE
+                Usage : java -jar stratificator.jar [OPTION] SOURCE
                 -o [DEST]\tspecify the output file
-                -v\t\t\tadd verbosity and print parsed program
-                -h\t\t\tdisplay this help and exit
+                -v\t\t print parsed program
+                -h\t\tdisplay this help and exit
                 """;
         System.out.println(stringBuilder);
         System.exit(0);
