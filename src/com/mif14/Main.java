@@ -21,6 +21,11 @@ public class Main {
         output.close();
     }
 
+    /**
+     * Prints the stratified {@link Program}.
+     *
+     * @param program The {@@link Program} to print.
+     */
     private static void printProgram(Program program) {
         System.out.println("Stratified program:");
         program.printOutput();
@@ -57,7 +62,7 @@ public class Main {
     }
 
     /**
-     * Prints the help and an error message before if provided
+     * Prints the help and an error message before if provided.
      */
     private static void showHelp(String message) {
         System.err.println(message);
@@ -65,7 +70,7 @@ public class Main {
     }
 
     /**
-     * Prints the help
+     * Prints the help.
      */
     private static void showHelp() {
         String stringBuilder = """
