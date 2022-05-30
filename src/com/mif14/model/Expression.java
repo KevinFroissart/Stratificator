@@ -51,6 +51,7 @@ public class Expression {
 
     /**
      * Get the expression's predicate.
+     *
      * @return The predicate.
      */
     public String getPredicate() {
@@ -59,6 +60,7 @@ public class Expression {
 
     /**
      * Get the terms of the expression.
+     *
      * @return A list of terms.
      */
     public List<String> getTerms() {
