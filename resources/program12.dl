@@ -1,0 +1,27 @@
+Pred(X).
+A(x):- Pred(x).
+B(x):- not A(x).
+C(x):- not B(x).
+D(x):- not C(x).
+E(x):- not D(x).
+F(x):- not E(x).
+G(x):- not F(x).
+H(x):- not G(x).
+I(x):- not H(x).
+J(x):- not I(x).
+K(x):- not J(x).
+L(x):- not K(x).
+M(x):- not L(x).
+N(x):- not M(x).
+O(x):- not N(x).
+P(x):- not O(x).
+Q(x):- not P(x).
+R(x):- not Q(x).
+S(x):- not R(x).
+T(x):- not S(x).
+U(x):- not T(x).
+V(x):- not U(x).
+W(x):- not V(x).
+X(x):- not W(x).
+Y(x):- not X(x).
+Z(x):- not Y(x).

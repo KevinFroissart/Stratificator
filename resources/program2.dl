@@ -10,5 +10,3 @@ Single(x) :- Woman(x, v), not Husband(x).
 Married(x) :- Person(id, x, s, 1).
 Husband(x) :- Man(x), Married(x).
 Test(x) :- Single(x).
-
-

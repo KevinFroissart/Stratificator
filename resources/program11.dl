@@ -1,0 +1,6 @@
+s(a,b).
+s(b,c).
+r(X,Y) :- s(X,Y).
+r(X,Y) :- r(X,Z), s(Z,Y).
+t(X,Y) :- r(X,Y), not s(X,Y).
+
