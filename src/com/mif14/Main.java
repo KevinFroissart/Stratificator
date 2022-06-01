@@ -7,11 +7,15 @@ import com.mif14.model.Stratifier;
 import java.io.FileNotFoundException;
 import java.io.PrintStream;
 
+
 public class Main {
 
     private static boolean verbosity = false;
 
     public static void main(String[] args) {
+        if (args.length < 1) {
+            showHelp();
+        }
         PrintStream output = parseArgs(args);
         String inputFilename = args[args.length - 1];
         Program program = Parser.parse(inputFilename);
@@ -21,6 +25,11 @@ public class Main {
         output.close();
     }
 
+    /**
+     * Prints the stratified {@link Program}.
+     *
+     * @param program The {@link Program} to print.
+     */
     private static void printProgram(Program program) {
         System.out.println("Stratified program:");
         program.printOutput();
@@ -57,7 +66,7 @@ public class Main {
     }
 
     /**
-     * Prints the help and an error message before if provided
+     * Prints the help and an error message before if provided.
      */
     private static void showHelp(String message) {
         System.err.println(message);
@@ -65,14 +74,14 @@ public class Main {
     }
 
     /**
-     * Prints the help
+     * Prints the help.
      */
     private static void showHelp() {
         String stringBuilder = """
-                Usage : stratificator [OPTION] SOURCE
+                Usage : java -jar stratificator.jar [OPTION] SOURCE
                 -o [DEST]\tspecify the output file
-                -v\t\t\tadd verbosity and print parsed program
-                -h\t\t\tdisplay this help and exit
+                -v\t\t print parsed program
+                -h\t\tdisplay this help and exit
                 """;
         System.out.println(stringBuilder);
         System.exit(0);
