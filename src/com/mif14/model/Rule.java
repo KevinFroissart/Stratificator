@@ -42,6 +42,12 @@ public class Rule {
         return body;
     }
 
+    /**
+     * Removes the dot at the end of the line.
+     *
+     * @param line The line to modify.
+     * @return The modified line.
+     */
     private String removeDot(String line) {
         if (line.endsWith(".")) return line.substring(0, line.length() - 1);
         return line;

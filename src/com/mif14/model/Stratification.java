@@ -12,7 +12,7 @@ public class Stratification {
      * Constructor.
      * Initialises an empty Stratification.
      *
-     * @param stratumNumber the number of strata
+     * @param stratumNumber the number of strata.
      */
     public Stratification(int stratumNumber) {
         this.strata = new ArrayList<>(stratumNumber);
